@@ -57,7 +57,6 @@
 	 
 
 	let appState = {
-		values: [],
 		concatVals: false,
 		operatorKey: ''
 	}
@@ -70,27 +69,51 @@
 		const key = e.target;
 		const action = key.dataset.action;
 		const keyContent = key.value;
-		console.log(action);
 
 		if(action === 'clear') {
 			display.value = '0';
 			appState.values = [];
 		}
+
+		
+
+		
+		const calculate = (firstvalue, operator, secondValue) => {
+			let result = '';
+
+			if(operator === 'add'){
+				console.log(parseFloat(firstvalue));
+				result =  parseFloat(firstvalue)  + parseFloat(secondValue);
+			}else if(operator === 'subtract'){
+				console.log(parseFloat(firstvalue));
+				result =  parseFloat(firstvalue)  - parseFloat(secondValue);
+			}else if(operator === 'multiply'){
+				console.log(parseFloat(firstvalue));
+				result =  parseFloat(firstvalue)  * parseFloat(secondValue);
+			}else if(operator === 'divide'){
+				console.log(parseFloat(firstvalue));
+				result =  parseFloat(firstvalue)  / parseFloat(secondValue);
+			}
+
+			return result;
+		}
 		if(action === 'calculate'){
-			const seconValue = displayedNum;
-			appState.values.push(displayedNum);
+			const firstvalue = calculator.dataset.firstvalue;
+			const operator = calculator.dataset.operator;
+			const secondValue = displayedNum;
+			
+
+			display.value = calculate(firstvalue, operator, secondValue);
 		}
 
 		if(!action) {
 			if(displayedNum === "0"){
-				console.log(appState.operatorKey);
 				display.value = keyContent;
 			}
 			if(displayedNum !== "0"){
 				display.value = displayedNum + keyContent;
 			}
 			if(appState.operatorKey !== ''){
-				console.log('cool');
 				display.value = keyContent;
 			}
 			appState.operatorKey = '';
@@ -108,16 +131,14 @@
 			}else{
 				calculator.dataset.firstvalue = displayedNum;
 				calculator.dataset.operator = action;
-				console.log(calculator.dataset);
 				appState.operatorKey = action;
 				appState.concatVals = false;
-				appState.values.push(displayedNum);
 			}
 			operatorKey = action;
 		}
 
 
-		console.log(appState.values);
+
 		console.log(appState.operatorKey);
 	})
 </script>
