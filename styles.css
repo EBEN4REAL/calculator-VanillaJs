@@ -71,3 +71,8 @@ input[type=button]:hover {
 	color: #fff !important;
 	background: blue !important;
 }
+.is-depressed-with-shadows{
+	color: #fff !important;
+	background: blue !important;
+	box-shadow: 5px 1px 5px blue;
+}

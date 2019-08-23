@@ -72,7 +72,7 @@
 
 		if(action === 'clear') {
 			display.value = '0';
-			calculator.dataset.previousKey = 'clear';
+			calculator.dataset.previousKeyType = 'clear';
 		}
 
 		const calculate = (firstvalue, operator, secondValue) => {
@@ -102,7 +102,7 @@
 
 			display.value = calculate(firstvalue, operator, secondValue);
 
-			calculator.dataset.previousKey = 'calculate';
+			calculator.dataset.previousKeyType = 'calculate';
 		}
 
 		if(!action) {
@@ -121,7 +121,7 @@
 			}
 			appState.operatorKey = '';
 
-			calculator.dataset.previousKey = 'number';
+			calculator.dataset.previousKeyType = 'number';
 			
 		}
 		if(action === 'decimal'){
@@ -129,17 +129,42 @@
 				appState.concatVals = true;
 				display.value = displayedNum + '.';
 
-				calculator.dataset.previousKey = 'decimal';
+				calculator.dataset.previousKeyType = 'decimal';
+			}else if(appState.operator !== ''){
+				display.value = '0.';
 			}
 		}
 		if(action === 'divide' || action === 'multiply' || action === 'add' || action === 'subtract'){
 			if(displayedNum.charAt(displayedNum.length - 1) === '.'){
 				return;
 			}else{
+				
+				
+
+				const firstvalue = calculator.dataset.firstvalue;
+				const operator = calculator.dataset.operator;
+				const secondValue = displayedNum;
+
+				if(firstvalue && operator && appState.operatorKey == ''){
+					const calcValue = calculate(firstvalue, operator, secondValue);
+					display.value = calcValue;
+				}else{
+					calculator.dataset.firstvalue = displayedNum;
+				}
+				if(appState.operatorKey === action){
+					key.classList.add('is-depressed-with-shadows');
+					console.log(key);
+					return;
+				}
+				if(appState.operatorKey !== ''){
+					key.classList.remove('is-depressed');
+				}
 				key.classList.add('is-depressed');
-				console.log(key);
+
+				calculator.dataset.previousKeyType = action;
 				calculator.dataset.firstvalue = displayedNum;
 				calculator.dataset.operator = action;
+
 				appState.operatorKey = action;
 				appState.concatVals = false;
 			}
@@ -149,6 +174,7 @@
 
 
 		console.log(appState.operatorKey);
+		console.log(calculator.dataset.previousKeyType);
 	})
 </script>
 </body>
