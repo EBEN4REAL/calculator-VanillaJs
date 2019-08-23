@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Js Calculator</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+	<table class="calculator">
+		<!-- This is the head section of the calculator -->
+		<tr >
+			<tr>
+				<td class="heading">
+					Simple Math Calculator
+				</td>
+			</tr>
+			<td>
+				<input class="display" type="text" id="input" placeholder="0" readonly="readonly" value="0">
+			</td>
+		</tr>
+
+		<!-- Buttons section of nthe calculator -->
+		<tr class="keys">
+			<td>
+				<input type="button" value="AC" id="clear-screen" data-action="clear">
+				<input type="button" value="&#247;" data-action="divide">
+				<input type="button" value=" X " data-action="multiply">
+				<input type="button" value=" &#8592; "  id="backspace" data-action="backspace">
+
+
+				<input type="button" value="1" class="btn-1">
+				<input type="button" value="2" >
+				<input type="button" value="3">
+				<input type="button" value=" + " data-action="add">
+				<br>
+				<input type="button" value="4" >
+				<input type="button" value="5" >
+				<input type="button" value="6" >
+				<input type="button" value=" - "  data-action="subtract">
+				<br>
+				<input type="button" value="7" >
+				<input type="button" value="8" >
+				<input type="button" value="9" >
+				<input type="button" value=" ( ) "  data-action="bracket">
+				<br>
+				<input type="button" value="+/-" >
+				<input type="button" value="0" >
+				<input type="button" value=" . "  data-action="decimal">
+				<input type="button" value=" = "  id="equalsBtn" data-action="calculate">
+			</td>
+		</tr>
+	</table>
+
+
+<script type="text/javascript">
+	const keys = document.querySelector('.keys');
+	 
+
+	let appState = {
+		values: [],
+		concatVals: false,
+		operatorKey: ''
+	}
+	
+
+	keys.addEventListener('click' , (e) => {
+		const display = document.querySelector('.display');
+		const displayedNum = document.querySelector('.display').value;
+		const key = e.target;
+		const action = key.dataset.action;
+		const keyContent = key.value;
+		console.log(action);
+
+		if(action === 'clear') {
+			display.value = '0';
+			appState.values = [];
+		}
+		if(action === 'calculate'){
+			const seconValue = displayedNum;
+			appState.values.push(displayedNum);
+		}
+
+		if(!action) {
+			if(displayedNum === "0"){
+				console.log(appState.operatorKey);
+				display.value = keyContent;
+			}
+			if(displayedNum !== "0"){
+				display.value = displayedNum + keyContent;
+			}
+			if(appState.operatorKey !== ''){
+				console.log('cool');
+				display.value = keyContent;
+			}
+			appState.operatorKey = '';
+			
+		}
+		if(action === 'decimal'){
+			if(!displayedNum.includes('.')){
+				appState.concatVals = true;
+				display.value = displayedNum + '.';
+			}
+		}
+		if(action === 'divide' || action === 'multiply' || action === 'add' || action === 'subtract'){
+			if(displayedNum.charAt(displayedNum.length - 1) === '.'){
+				return;
+			}else{
+				appState.operatorKey = action;
+				appState.concatVals = false;
+				appState.values.push(displayedNum);
+			}
+			operatorKey = action;
+		}
+
+
+		console.log(appState.values);
+		console.log(appState.operatorKey);
+	})
+</script>
+</body>
+</html>
