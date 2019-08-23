@@ -72,12 +72,9 @@
 
 		if(action === 'clear') {
 			display.value = '0';
-			appState.values = [];
+			calculator.dataset.previousKey = 'clear';
 		}
 
-		
-
-		
 		const calculate = (firstvalue, operator, secondValue) => {
 			let result = '';
 
@@ -104,6 +101,8 @@
 			
 
 			display.value = calculate(firstvalue, operator, secondValue);
+
+			calculator.dataset.previousKey = 'calculate';
 		}
 
 		if(!action) {
@@ -114,27 +113,37 @@
 				display.value = displayedNum + keyContent;
 			}
 			if(appState.operatorKey !== ''){
+				Array.from(key.parentNode.children)
+					.forEach(key => {
+						key.classList.remove('is-depressed');
+					})
 				display.value = keyContent;
 			}
 			appState.operatorKey = '';
+
+			calculator.dataset.previousKey = 'number';
 			
 		}
 		if(action === 'decimal'){
 			if(!displayedNum.includes('.')){
 				appState.concatVals = true;
 				display.value = displayedNum + '.';
+
+				calculator.dataset.previousKey = 'decimal';
 			}
 		}
 		if(action === 'divide' || action === 'multiply' || action === 'add' || action === 'subtract'){
 			if(displayedNum.charAt(displayedNum.length - 1) === '.'){
 				return;
 			}else{
+				key.classList.add('is-depressed');
+				console.log(key);
 				calculator.dataset.firstvalue = displayedNum;
 				calculator.dataset.operator = action;
 				appState.operatorKey = action;
 				appState.concatVals = false;
 			}
-			operatorKey = action;
+			appState.operatorKey = action;
 		}
 
 
