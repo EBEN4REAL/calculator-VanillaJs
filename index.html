@@ -66,6 +66,7 @@
 	keys.addEventListener('click' , (e) => {
 		const display = document.querySelector('.display');
 		const displayedNum = document.querySelector('.display').value;
+		const calculator = document.querySelector('.calculator');
 		const key = e.target;
 		const action = key.dataset.action;
 		const keyContent = key.value;
@@ -105,6 +106,9 @@
 			if(displayedNum.charAt(displayedNum.length - 1) === '.'){
 				return;
 			}else{
+				calculator.dataset.firstvalue = displayedNum;
+				calculator.dataset.operator = action;
+				console.log(calculator.dataset);
 				appState.operatorKey = action;
 				appState.concatVals = false;
 				appState.values.push(displayedNum);
