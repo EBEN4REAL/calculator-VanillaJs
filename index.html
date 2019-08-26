@@ -138,16 +138,14 @@
 			if(displayedNum.charAt(displayedNum.length - 1) === '.'){
 				return;
 			}else{
-				
-				
-
 				const firstvalue = calculator.dataset.firstvalue;
-				const operator = calculator.dataset.operator;
+				const  operator= calculator.dataset.operator;
 				const secondValue = displayedNum;
 
-				if(firstvalue && operator && appState.operatorKey == ''){
+				if(firstvalue && operator && appState.operatorKey === ''){
 					const calcValue = calculate(firstvalue, operator, secondValue);
 					display.value = calcValue;
+					calculator.dataset.firstvalue = calcValue;
 				}else{
 					calculator.dataset.firstvalue = displayedNum;
 				}
@@ -162,7 +160,6 @@
 				key.classList.add('is-depressed');
 
 				calculator.dataset.previousKeyType = action;
-				calculator.dataset.firstvalue = displayedNum;
 				calculator.dataset.operator = action;
 
 				appState.operatorKey = action;
