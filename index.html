@@ -119,6 +119,11 @@
 			const clearButton = calculator.querySelector(`[data-action="clear"]`);
 			clearButton.value = 'CE';
 		}
+		if(action === 'clear'){
+			display.value = '0';
+			const clearButton = calculator.querySelector(`[data-action="clear"]`);
+			clearButton.value = 'AC';
+		}
 		if(!action) {
 			if(displayedNum === "0" || calculator.dataset.previousKeyType === 'calculate'){
 				display.value = keyContent;
