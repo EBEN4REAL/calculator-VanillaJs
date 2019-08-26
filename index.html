@@ -41,9 +41,9 @@
 				<input type="button" value="7" >
 				<input type="button" value="8" >
 				<input type="button" value="9" >
-				<input type="button" value=" ( ) "  data-action="bracket">
+				<input type="button" value=" % "  data-action="percentage">
 				<br>
-				<input type="button" value="+/-" >
+				<input type="button" value="+/-" data-action="plus-minus">
 				<input type="button" value="0" >
 				<input type="button" value=" . "  data-action="decimal">
 				<input type="button" value=" = "  id="equalsBtn" data-action="calculate">
@@ -76,6 +76,11 @@
 			calculator.dataset.previousKeyType = 'clear';
 		}
 
+		if(action === 'percentage'){
+			const percentNum = displayedNum * 0.01;
+			display.value = percentNum;
+		}
+
 		if (action === 'backspace') {
 			newDisplay = displayedNum.substring(0,displayedNum.length - 1 );
 			display.value = newDisplay;
@@ -83,6 +88,10 @@
 				display.value = '0';
 			}
 			console.log(newDisplay)
+		}
+		if(action === 'plus-minus'){
+			newDisplay = displayedNum * -1 ;
+			display.value = newDisplay;
 		}
 
 		const calculate = (firstvalue, operator, secondValue) => {
