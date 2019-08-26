@@ -4,9 +4,13 @@
 .calculator {
 	width: 310px;
 	margin: 50px auto;
-	background: #663399;
+	background-image: url('whatsapp-bg.png');
 	border: none;
 	padding: 0px 20px 20px;
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	box-shadow: 1px 2px 2px #000;
 }
 .display{
 	width: 100%;
@@ -18,7 +22,7 @@ table {
 	margin: 
 }
 .heading {
-	color: #fff;
+	color: grey;
 	font-size: 130%;
 	text-align: center;
 	padding: 10px;
