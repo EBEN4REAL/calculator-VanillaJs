@@ -120,9 +120,18 @@
 			clearButton.value = 'CE';
 		}
 		if(action === 'clear'){
+			if(key.value === 'AC'){
+				calculator.dataset.firstvalue = '';
+				calculator.dataset.newSecondValue = '';
+				appState.operatorKey = '';
+				appState.concatVals = false;
+				calculator.dataset.previousKeyType = '';
+			}else{
+				key.value = 'AC';
+			}
 			display.value = '0';
-			const clearButton = calculator.querySelector(`[data-action="clear"]`);
-			clearButton.value = 'AC';
+
+			calculator.dataset.previousKeyType = 'clear';
 		}
 		if(!action) {
 			if(displayedNum === "0" || calculator.dataset.previousKeyType === 'calculate'){
