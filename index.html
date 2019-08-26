@@ -77,8 +77,12 @@
 		}
 
 		if (action === 'backspace') {
-			newDisplay = displayedNum.splice(display.value.length - 2, 1);
+			newDisplay = displayedNum.substring(0,displayedNum.length - 1 );
 			display.value = newDisplay;
+			if(display.value === ''){
+				display.value = '0';
+			}
+			console.log(newDisplay)
 		}
 
 		const calculate = (firstvalue, operator, secondValue) => {
