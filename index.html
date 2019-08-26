@@ -76,20 +76,21 @@
 			calculator.dataset.previousKeyType = 'clear';
 		}
 
+		if (action === 'backspace') {
+			newDisplay = displayedNum.splice(display.value.length - 2, 1);
+			display.value = newDisplay;
+		}
+
 		const calculate = (firstvalue, operator, secondValue) => {
 			let result = '';
 
 			if(operator === 'add'){
-				console.log(parseFloat(firstvalue));
 				result =  parseFloat(firstvalue)  + parseFloat(secondValue);
 			}else if(operator === 'subtract'){
-				console.log(parseFloat(firstvalue));
 				result =  parseFloat(firstvalue)  - parseFloat(secondValue);
 			}else if(operator === 'multiply'){
-				console.log(parseFloat(firstvalue));
 				result =  parseFloat(firstvalue)  * parseFloat(secondValue);
 			}else if(operator === 'divide'){
-				console.log(parseFloat(firstvalue));
 				result =  parseFloat(firstvalue)  / parseFloat(secondValue);
 			}
 
@@ -172,14 +173,13 @@
 				return;
 			}else{
 				const firstvalue = calculator.dataset.firstvalue;
-				const  operator= calculator.dataset.operator;
 				const secondValue = displayedNum;
+				const operator = calculator.dataset.operator;
 
 				if(calculator.dataset.previousKeyType === 'calculate'){
 					calculator.dataset.firstvalue = displayedNum;
 					calculator.dataset.secondValue = keyContent;
-					appState.operatorKey = action;
-					return;
+					appState.operatorKey = operator;
 				}
 
 				if(firstvalue && operator && appState.operatorKey === ''){
@@ -191,7 +191,6 @@
 				}
 				if(appState.operatorKey === action){
 					key.classList.add('is-depressed-with-shadows');
-					console.log(key);
 					return;
 				}
 				if(appState.operatorKey !== ''){
@@ -200,13 +199,15 @@
 
 				key.classList.add('is-depressed');
 
-				calculator.dataset.previousKeyType = action;
+				calculator.dataset.previousKeyType = 'operator';
 				calculator.dataset.operator = action;
 
 				appState.operatorKey = action;
 				appState.concatVals = false;
+
+				console.log(calculator.dataset.operator);
 			}
-			appState.operatorKey = action;
+			
 		}
 
 	})
