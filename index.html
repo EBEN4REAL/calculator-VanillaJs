@@ -95,12 +95,21 @@
 			return result;
 		}
 		if(action === 'calculate'){
-			const firstvalue = calculator.dataset.firstvalue;
+			let firstvalue = calculator.dataset.firstvalue;
 			const operator = calculator.dataset.operator;
-			const secondValue = displayedNum;
+			let secondValue = displayedNum;
+
+			if(firstvalue) {
+				if(calculator.dataset.previousKeyType === 'calculate') {
+					firstvalue = displayedNum;
+					secondValue = calculator.dataset.newSecondValue;
+				}
+			}
 			
 
 			display.value = calculate(firstvalue, operator, secondValue);
+
+			calculator.dataset.newSecondValue = secondValue;
 
 			calculator.dataset.previousKeyType = 'calculate';
 		}
@@ -124,6 +133,7 @@
 			calculator.dataset.previousKeyType = 'number';
 			
 		}
+		
 		if(action === 'decimal'){
 			if(!displayedNum.includes('.')){
 				appState.concatVals = true;
