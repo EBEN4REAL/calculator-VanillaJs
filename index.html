@@ -115,7 +115,10 @@
 
 			calculator.dataset.previousKeyType = 'calculate';
 		}
-
+		if(action !== 'clear'){
+			const clearButton = calculator.querySelector(`[data-action="clear"]`);
+			clearButton.value = 'CE';
+		}
 		if(!action) {
 			if(displayedNum === "0" || calculator.dataset.previousKeyType === 'calculate'){
 				display.value = keyContent;
@@ -192,10 +195,6 @@
 			appState.operatorKey = action;
 		}
 
-
-
-		console.log(appState.operatorKey);
-		console.log(calculator.dataset.previousKeyType);
 	})
 </script>
 </body>
