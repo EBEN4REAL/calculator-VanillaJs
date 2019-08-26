@@ -11,7 +11,7 @@
 		<tr >
 			<tr>
 				<td class="heading">
-					Simple Math Calculator
+					Eben Simple Math Calculator
 				</td>
 			</tr>
 			<td>
@@ -122,12 +122,16 @@
 				}
 			}
 			
+			key.classList.add('calculateBtn');
 
 			display.value = calculate(firstvalue, operator, secondValue);
 
 			calculator.dataset.newSecondValue = secondValue;
 
 			calculator.dataset.previousKeyType = 'calculate';
+		}
+		if(displayedNum.length > 0){
+			document.getElementById("equalsBtn").classList.add('calculateBtn');
 		}
 		if(action !== 'clear'){
 			const clearButton = calculator.querySelector(`[data-action="clear"]`);

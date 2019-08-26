@@ -62,7 +62,13 @@ input[type=button]:hover {
 }
 #equalsBtn{
 	color: #fff;
+	background: lightgreen;
+}
+#equalsBtn:hover #equalsBtn:focus{
 	background: green;
+}
+.calculateBtn{
+	background: green !important;
 }
 #clear-screen{
 	color: #fff;
