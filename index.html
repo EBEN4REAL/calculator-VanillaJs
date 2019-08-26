@@ -72,6 +72,7 @@
 
 		if(action === 'clear') {
 			display.value = '0';
+			appState.operatorKey = '';
 			calculator.dataset.previousKeyType = 'clear';
 		}
 
@@ -99,6 +100,7 @@
 			const operator = calculator.dataset.operator;
 			let secondValue = displayedNum;
 
+
 			if(firstvalue) {
 				if(calculator.dataset.previousKeyType === 'calculate') {
 					firstvalue = displayedNum;
@@ -115,10 +117,10 @@
 		}
 
 		if(!action) {
-			if(displayedNum === "0"){
+			if(displayedNum === "0" || calculator.dataset.previousKeyType === 'calculate'){
 				display.value = keyContent;
 			}
-			if(displayedNum !== "0"){
+			if(displayedNum !== "0" || calculator.dataset.previousKeyType === 'calculate'){
 				display.value = displayedNum + keyContent;
 			}
 			if(appState.operatorKey !== ''){
@@ -128,6 +130,8 @@
 					})
 				display.value = keyContent;
 			}
+
+
 			appState.operatorKey = '';
 
 			calculator.dataset.previousKeyType = 'number';
@@ -139,10 +143,12 @@
 				appState.concatVals = true;
 				display.value = displayedNum + '.';
 
-				calculator.dataset.previousKeyType = 'decimal';
-			}else if(appState.operator !== ''){
+				
+			}else if(appState.operator !== '' || calculator.dataset.previousKeyType === 'calculate'){
 				display.value = '0.';
 			}
+
+			calculator.dataset.previousKeyType = 'decimal';
 		}
 		if(action === 'divide' || action === 'multiply' || action === 'add' || action === 'subtract'){
 			if(displayedNum.charAt(displayedNum.length - 1) === '.'){
@@ -151,6 +157,13 @@
 				const firstvalue = calculator.dataset.firstvalue;
 				const  operator= calculator.dataset.operator;
 				const secondValue = displayedNum;
+
+				if(calculator.dataset.previousKeyType === 'calculate'){
+					calculator.dataset.firstvalue = displayedNum;
+					calculator.dataset.secondValue = keyContent;
+					appState.operatorKey = action;
+					return;
+				}
 
 				if(firstvalue && operator && appState.operatorKey === ''){
 					const calcValue = calculate(firstvalue, operator, secondValue);
@@ -167,6 +180,7 @@
 				if(appState.operatorKey !== ''){
 					key.classList.remove('is-depressed');
 				}
+
 				key.classList.add('is-depressed');
 
 				calculator.dataset.previousKeyType = action;
