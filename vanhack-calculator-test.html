@@ -1,0 +1,59 @@
+<template>
+  <div>
+    <div id="calWrap">
+      <div class="top">
+        <div class="output">{{total}}</div>
+      </div>
+      <div id="keys">
+          <button class="digit-0" @click="key(0)">0</button>
+          <button class="digit-1"  @click="key(1)">1</button>
+          <button class="digit-2" @click="key(2)">2</button>
+          <button class="digit-3" @click="key(3)">3</button>
+          <button class="digit-4"  @click="key(4)">4</button>
+          <button class="digit-5" @click="key(5)">5</button>
+          <button class="digit-6"  @click="key(6)">6</button>
+          <button class="digit-7"  @click="key(7)">7</button>
+          <button class="digit-8"  @click="key(8)">8</button>
+          <button class="digit-9"  @click="key(9)">9</button>
+          <button class="op-add" @click="key('+')">+</button>
+          <button class="op-sub" @click="key('-')">-</button>
+          <button class="op-mul" @click="key('*')">*</button>
+          <button class="op-div"  @click="key('/')">/</button>
+          <button class="eq"  @click="equal">=</button>
+          <button class="clear" @click="clear">C</button>
+      </div>
+  </div>  
+
+  </div> 
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      total: '',
+    }
+  },
+  methods: {
+     key (num) {
+         if(this.total.charAt(this.total.length - 1) == '-' && num == '-') {
+            return
+         } 
+       this.total = this.total + num
+    },
+    clear() {
+      this.total = '';
+    },
+   
+    equal() {
+      let output = this.total;
+      output = eval(output.replace(/\b0(\d+)\b/g, '$1'));
+      if(output == Infinity || output == -Infinity ) {
+        this.total = ''
+        return
+      }
+      this.total = parseInt(output) ;
+    }  
+  }
+}
+</script>
